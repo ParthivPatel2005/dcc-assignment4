@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .results {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Purchase Details</h1>
+
+    <!-- Navigation Links to Different Sites -->
+    <div class="section">
+        <a href="/redemption">Go to Redemption Details</a>
+    </div>
+
+    <!-- Form to fetch purchase details and apply filters -->
+    <div class="section">
+        <form method="post">
+            <input type="text" name="Bond_Number" placeholder="Enter Bond Number" value="{{ bond_number }}" />
+            <select name="Purchaser">
+                <option value="">--Select Purchaser--</option>
+                {% for purchaser in purchasers %}
+                    <option value="{{ purchaser }}">{{ purchaser }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Fetch Purchase Details</button>
+        </form>
+    </div>
+
+    <!-- Display Purchase Details -->
+    {% if purchase_details %}
+    <div class="section results">
+        <h2>Purchase Details</h2>
+        <table class="table">
+            <tr>
+                <th>Sr No.</th>
+                <th>Reference No (URN)</th>
+                <th>Journal Date</th>
+                <th>Date of Purchase</th>
+                <th>Date of Expiry</th>
+                <th>Name of Purchaser</th>
+                <th>Prefix</th>
+                <th>Bond Number</th>
+                <th>Denominations</th>
+                <th>Issue Branch Code</th>
+                <th>Issue Teller</th>
+                <th>Status</th>
+
+            </tr>
+            {% for row in purchase_details %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+                <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
+                <td>{{ row[9] }}</td>
+                <td>{{ row[10] }}</td>
+                <td>{{ row[11] }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</body>
+</html>

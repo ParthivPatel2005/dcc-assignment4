@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redemption Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .results {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Redemption Details</h1>
+
+    <!-- Navigation Links to Different Sites -->
+    <div class="section">
+        <a href="/purchase">Go to Purchase Details</a>
+    </div>
+
+    <!-- Form to fetch redemption details and apply filters -->
+    <div class="section">
+        <form method="post">
+            <input type="text" name="Bond_Number" placeholder="Enter Bond Number" value="{{ bond_number }}" />
+            <select name="Political_Party">
+                <option value="">--Select Political Party--</option>
+                {% for party in political_parties %}
+                    <option value="{{ party }}">{{ party }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Fetch Redemption Details</button>
+        </form>
+    </div>
+
+    <!-- Display Redemption Details -->
+    {% if redemption_details %}
+    <div class="section results">
+        <h2>Redemption Details</h2>
+        <table class="table">
+            <tr>
+                <th>Bond Number</th>
+                <th>Political Party</th>
+                <th>Account No.</th>
+                <th>Prefix</th>
+                <th>Denominations</th>
+                <th>Pay Branch Code</th>
+                <th>Pay Teller</th>
+            </tr>
+            {% for row in redemption_details %}
+            <tr>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[6] }}</td>
+                <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</body>
+</html>
